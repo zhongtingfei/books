@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link rel="stylesheet" href="/static/Books.css">
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="Head" class="booksHead">
+    <div class="navlist" id="mainNavBox" style="z-index: 300!important;">
+        <ul>
+            <li class="logo" style="text-align: left;"><a href=""></a>
+            </li>
+            <li>
+                <a href="" style="padding: 10px 0px 0px;">首页</a>
+                <span class="NavLine"></span>
+            </li>
+            <li>
+                <a href="">books</a>
+                <span class="NavLine"></span>
+                <div class="subNav" style="display: none;">
+                    <span></span>
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="content" class="Content">
+        <div class="FocusAd">
+            <div style="width: 100%;height: 2px;"></div>
+            <div class="Focus" style="background-color: #00F7DE">
+                #推荐栏
+                <div class="foucsTab" >
+
+                </div>
+            </div>
+        </div>
+        <span class="blank20"></span>
+        <div class="list_top">
+            <h2>优先推荐</h2>
+
+            <div class="layui-row">
+                {% for i in book_list %}
+
+                <div class="layui-col-md4">
+
+                    <div class="layui-row">
+                        <div class="layui-col-md8">
+                            <a href="">
+                            <img src="{{ i.book_img_url }}" alt="{{ i.book_name }}" class="index_list_top_img">
+                                </a>
+                        </div>
+                        <div class="layui-col-md4 index_book_info">
+                            <ul class="books_info">
+                                <li><h3>{{ i.book_name }}</h3></li>
+                                <li>
+                                    <span>作者:</span>
+                                    {{ i.book_auth }}
+                                </li>
+                                <li>
+                                    <span>价格:</span>
+                                    {{ i.book_price }}￥
+                                </li>
+
+                                <li>
+                                    <span>简介:</span>
+                                    {{ i.book_introduction }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+    <div class="footArea">
+        <div class="footBottom">
+            <p>
+                Copyright 2007 - 2019 京ICP证 京公网安备号
+            </p>
+            <p>
+                felix 出版
+            </p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

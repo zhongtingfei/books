@@ -1,0 +1,149 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/layui/layui.js"></script>
+    <style>
+        #a_href{
+            float: left;
+            position: relative;
+        }
+        span{
+            color: #FF5722;
+            font-size: larger;
+        }
+        .layui-input{
+            width: 80%;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="layui-row" >
+    <div class="layui-col-md4 layui-col-md-offset4" >
+        <div style="height: 20px"></div>
+        <form action="/register/" method="post" class="layui-form" style="outline: outset">
+            {%csrf_token%}
+            <div class="layui-col-md9">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>注册页面</legend>
+            </fieldset>
+            </div>
+            <div class="layui-col-md3" id="a_href">
+                <div style="margin:10px 0 0 50px; ">
+                    <a href="{% url 'login' %}"><span>登录</span></a>
+                </div>
+            </div>
+
+{#            用户名#}
+            <div class="layui-form-item">
+                <label for="{{ uform.uname.id_for_label }}"
+                    class="layui-form-label">{{ uform.uname.label }}</label>
+                 <div class="layui-input-block">
+                {{ uform.uname }}
+                <span class="help-block" >{{ uform.uname.errors.0 }}</span>
+                     <span id="errmsg_uname"></span>
+                 </div>
+            </div>
+
+{#            密码#}
+            <div class="layui-form-item">
+                <label for="{{ uform.upasswd.id_for_label }}"
+                    class="layui-form-label">{{ uform.upasswd.label }}</label>
+                 <div class="layui-input-block">
+                {{ uform.upasswd }}
+                <span class="help-block">{{ uform.upasswd.errors.0 }}</span>
+                 </div>
+            </div>
+
+{#            确认密码#}
+            <div class="layui-form-item">
+                <label for="{{ uform.re_upasswd.id_for_label }}"
+                    class="layui-form-label">{{ uform.re_upasswd.label }}</label>
+                 <div class="layui-input-block">
+                {{ uform.re_upasswd }}
+                <span class="help-block">{{ uform.re_upasswd.errors.0 }}</span>
+                     <span id="errmsg_re_upasswd"></span>
+                 </div>
+            </div>
+
+{#            邮件地址#}
+            <div class="layui-form-item">
+                <label for="{{ uform.uemail.id_for_label }}"
+                    class="layui-form-label">{{ uform.uemail.label }}</label>
+                 <div class="layui-input-block">
+                {{ uform.uemail }}
+                <span class="help-block">{{ uform.uemail.errors.0 }}</span>
+                     <span id="errmsg_uemail"></span>
+                 </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label for=""></label>
+                <div class="layui-input-block">
+                    <button class="layui-btn" name="btn" value="register" style="margin: 0 0 10px 0">注册</button>
+
+                </div>
+            </div>
+        </form>
+        <div class="layui-form-item">
+            <div id="errmsg" style="color: #FF5722"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+<script>
+
+
+    layui.use('layer',function(){
+    var $ = layui.$;
+    var layer = layui.layer;
+    //触发验证用户名
+    $('#id_uname').mouseout(function () {
+        var uname = $(this).val();
+        $.get("/check/",{'uname':uname},function (ret) {
+            if (ret['Booldata']=="True"){
+                $("#errmsg_uname").html("用户名已存在");
+            }else{
+                $("#errmsg_uname").html("");
+            };
+        });
+        });
+    //触发验证邮箱地址
+    $('#id_uemail').mouseout(function () {
+        var uemail = $(this).val();
+        $.get("/check/",{'uemail':uemail},function (ret) {
+            if (ret['Booldata']=="True"){
+
+                $("#errmsg_uemail").html("邮箱地址已存在");
+
+            }else{
+                $("#errmsg_uemail").html("");
+            };
+        });
+        });
+
+
+    //触发验证密码是否一致
+    $('#id_re_upasswd').mouseout(function () {
+        var re_upasswd = $(this).val();
+        var upasswd = $("#id_upasswd").val();
+        if (re_upasswd == upasswd){
+            $("#errmsg_re_upasswd").html("");
+        }else{
+            $("#errmsg_re_upasswd").html("密码不一致");
+        };
+
+    });
+    });
+
+</script>

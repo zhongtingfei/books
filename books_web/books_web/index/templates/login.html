@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/layui/layui.js"></script>
+    <title>login</title>
+    <style>
+        span{
+            color: #FF5722;
+            font-size: larger;
+        }
+        #remember_passwd{
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="layui-row">
+    <div class="layui-col-md4 layui-col-md-offset4" style="border-radius: 5px">
+        <form action="/login/" class="layui-form layui-bg-gray" method="post" >
+            {% csrf_token %}
+
+            <div class="layui-form-item">
+                <div class="layui-col-md9">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>登录页</legend>
+                </fieldset>
+                </div>
+                <div class="layui-col-md3">
+                    <div style="margin:10px 0 0 50px; ">
+                        <a href="{% url 'register' %}"><span>注册</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <img src="{% static "image/index.jpeg" %}" alt="" style="width: 100%">
+            </div>
+
+            <div class="layui-form-item">
+                <label for="" class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="uname"  placeholder="" autocomplete="off" class="layui-input" style="width: 80%">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="" class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="password" name="upasswd" placeholder="" autocomplete="off" class="layui-input" style="width: 80%">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="checkbox" name="remb_passwd" lay-skin="primary" title="记住密码" checked="" id="remember_passwd">
+                    记住密码
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for=""></label>
+                <div class="layui-input-block layui-row">
+                    <button class="layui-btn" name="btn" value="login">登录</button>
+
+                </div>
+
+            </div>
+            <div style="height: 20px">
+                <label for=""></label>
+                <sapn class="layui-input-block" style="color: #FF5722;">
+                    <b>{{ errmsg }}</b>
+                </sapn>
+
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+<script>
+
+    layui.use('button',{})
+
+</script>
